@@ -1,36 +1,52 @@
 <?php
+// inizializza le variabili per contenere i dati del form e i messaggi di errore
+$companyName = $fullName = $email = $phone = $service = "";
+$companyNameErr = $fullNameErr = $emailErr = $phoneErr = $serviceErr = "";
 
-$company_nameErr=$full_nameErr=$emailErr=$phoneErr=$serviceErr='';
-$company_name=$full_name=$email=$phone=$service='';
-// Validazione lato server in PHP
+// controlla se il form è stato inviato usando il metodo POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["company_name"])) {
-      $nameErr = "company name is required";
+    // controlla se il campo "companyName" è vuoto
+    if (empty($_POST["companyName"])) {
+        $companyNameErr = "Il nome dell'azienda è obbligatorio.";
     } else {
-      $company_name = test_input($_POST["company_name"]);
+        // pulisce e assegna il valore inserito alla variabile
+        $companyName = test_input($_POST["companyName"]);
     }
 
-    if(empty($_POST["full_name"])){
-        $full_nameErr="full name is required";
+    // ripete il processo di validazione per ciascun campo del form
+    if (empty($_POST["fullName"])) {
+        $fullNameErr = "Il nome completo è obbligatorio.";
+    } else {
+        $fullName = test_input($_POST["fullName"]);
     }
-  
+
     if (empty($_POST["email"])) {
-      $emailErr = "Email is required";
+        $emailErr = "L'email è obbligatoria.";
     } else {
-      $email = test_input($_POST["email"]);
+        $email = test_input($_POST["email"]);
+        // controlla se l'email rispetta il formato standard delle email
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "Formato email non valido.";
+        }
     }
-    
+
     if (empty($_POST["phone"])) {
-      $phoneErr = "phone is required";
+        $phoneErr = "Il numero di telefono è obbligatorio.";
     } else {
-      $phone = test_input($_POST["phone"]);
+        $phone = test_input($_POST["phone"]);
     }
-    
+
     if (empty($_POST["service"])) {
-      $service = "service is required";
+        $serviceErr = "Il servizio è obbligatorio.";
     } else {
-      $service = test_input($_POST["service"]);
+        $service = test_input($_POST["service"]);
     }
-    
-  }
+}
+
+function test_input($data) {
+  // rimuove gli spazi bianchi all'inizio e alla fine
+  $data = trim($data);
+  return $data;
+}
 ?>
+

@@ -1,40 +1,41 @@
-
-
+<?php require 'process_form.php'; ?>
+<!DOCTYPE html>
 <html>
 <head>
- 
-    <link rel="stylesheet" href="styles.css">
-    <title>Landing Page</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <h1>Compila il modulo sottostante</h1>
-    <form method="post" action="process_form.php">
-        <div class="form-group">
-            <label for="company_name">Nome azienda</label>
-            <input type="text" id="company_name" name="company_name" required>
-        </div>
-        <div class="form-group">
-            <label for="full_name">Nome completo</label>
-            <input type="text" id="full_name" name="full_name" required>
-        </div>
-        <div class="form-group">
-        <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-        <label for="phone">Telefono</label>
-            <input type="tel" id="phone" name="phone" required>
-        </div>
-        <div class="form-group">
-        <label   label for="service">Scegli servizio</label>
-        <select id="service" name="service" required>
-            <option value="">Seleziona un'opzione</option>
-       
-            </select>
-            </div>
-
-       
-        <button type="submit">Invia richiesta</button>
+   
+    
+    <form method="post" action="<?php echo ($_SERVER["PHP_SELF"]);?>">
+    <h2>Fill the form below</h2>
+        <input type="text" name="companyName" placeholder="Company name">
+        <span class="error">* <?php echo $companyNameErr;?></span>
+        <br><br>
+        <input type="text" name="fullName" placeholder="Full name">
+        <span class="error">* <?php echo $fullNameErr;?></span>
+        <br><br>
+        <input type="text" name="email" placeholder="Email">
+        <span class="error">* <?php echo $emailErr;?></span>
+        <br><br>
+        <input type="text" name="phone" placeholder="Phone">
+        <span class="error">* <?php echo $phoneErr;?></span>
+        <br><br>
+     
+        <select name="service">
+            <option value="">Seleziona un servizio...</option>
+            <option value="service1">pippo franco</option>
+            <option value="service2">gino paoli</option>
+            
+        </select>
+        <span class="error">* <?php echo $serviceErr;?></span>
+        <br><br>
+        <input type="submit" name="submit" value="Send request">
     </form>
+
+   
+    <div class="image-container">
+        <img src="camioncino.png" alt="Image">
+    </div>
 </body>
 </html>
